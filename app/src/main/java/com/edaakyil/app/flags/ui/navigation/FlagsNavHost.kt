@@ -1,5 +1,6 @@
 package com.edaakyil.app.flags.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +21,7 @@ fun FlagsNavHost(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier
 ) {
-    var isNavigationRailVisible by rememberSaveable { mutableStateOf(false) }
+
 
     NavHost(
         navController = navController,
@@ -30,18 +31,16 @@ fun FlagsNavHost(
         composable(route = MainDestination.HOME_ROUTE) {
             MainScreenLayout(
                 currentScreen = MainDestination.HOME_ROUTE,
-                onMenuSelected = { isNavigationRailVisible = !isNavigationRailVisible },
-                onBottomBarItemSelected = { navController.navigate(route = it) }
+                onNavigationItemSelected = { navController.navigate(route = it) }
             ) {
-                 HomeScreen()
+                 HomeScreen(Modifier.fillMaxSize())
             }
         }
 
         composable(route = MainDestination.INTERESTS_ROUTE) {
             MainScreenLayout(
                 currentScreen = MainDestination.INTERESTS_ROUTE,
-                onMenuSelected = { isNavigationRailVisible = !isNavigationRailVisible },
-                onBottomBarItemSelected = { navController.navigate(route = it) }
+                onNavigationItemSelected = { navController.navigate(route = it) }
             ) {
                 InterestsScreen()
             }
@@ -50,10 +49,18 @@ fun FlagsNavHost(
         composable(route = MainDestination.QUIZ_ROUTE) {
             MainScreenLayout(
                 currentScreen = MainDestination.QUIZ_ROUTE,
-                onMenuSelected = { isNavigationRailVisible = !isNavigationRailVisible },
-                onBottomBarItemSelected = { navController.navigate(route = it) }
+                onNavigationItemSelected = { navController.navigate(route = it) }
             ) {
-                QuizScreen()
+                QuizScreen(Modifier.fillMaxSize())
+            }
+        }
+
+        composable(route = MainDestination.SETTINGS_ROUTE) {
+            MainScreenLayout(
+                currentScreen = MainDestination.SETTINGS_ROUTE,
+                onNavigationItemSelected = { navController.navigate(route = it) }
+            ) {
+                QuizScreen(Modifier.fillMaxSize())
             }
         }
     }

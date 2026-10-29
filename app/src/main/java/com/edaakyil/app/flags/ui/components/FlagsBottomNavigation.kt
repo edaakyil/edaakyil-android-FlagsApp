@@ -21,7 +21,7 @@ fun FlagsBottomNavigation(
     onTabSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    NavigationBar() {
+    NavigationBar(modifier = modifier) {
         NavigationBarItem(
             selected = currentScreen == MainDestination.HOME_ROUTE,
             onClick = { onTabSelected(MainDestination.HOME_ROUTE) },

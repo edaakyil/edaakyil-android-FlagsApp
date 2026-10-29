@@ -19,7 +19,7 @@ import com.edaakyil.app.flags.ui.theme.FlagsTheme
 @Composable
 fun AppNavRail(
     currentScreen: String,
-    onTabSelected: () -> Unit,
+    onTabSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavigationRail(
@@ -48,7 +48,7 @@ fun AppNavRail(
 
         NavigationRailItem(
             selected = currentScreen == MainDestination.HOME_ROUTE,
-            onClick = onTabSelected,
+            onClick = { onTabSelected(MainDestination.HOME_ROUTE) },
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.home_filled),
@@ -61,7 +61,7 @@ fun AppNavRail(
 
         NavigationRailItem(
             selected = currentScreen == MainDestination.INTERESTS_ROUTE,
-            onClick = onTabSelected,
+            onClick = { onTabSelected(MainDestination.INTERESTS_ROUTE) },
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.list_alt_filled),
@@ -73,21 +73,8 @@ fun AppNavRail(
         )
 
         NavigationRailItem(
-            selected = currentScreen == MainDestination.SETTINGS_ROUTE,
-            onClick = onTabSelected,
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.settings_filled),
-                    contentDescription = stringResource(R.string.settings_title)
-                )
-            },
-            label = { Text(stringResource(R.string.interests_title)) },
-            alwaysShowLabel = false
-        )
-
-        NavigationRailItem(
             selected = currentScreen == MainDestination.QUIZ_ROUTE,
-            onClick = onTabSelected,
+            onClick = { onTabSelected(MainDestination.QUIZ_ROUTE) },
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.quiz),
@@ -95,6 +82,19 @@ fun AppNavRail(
                 )
             },
             label = { Text(stringResource(R.string.quiz_title)) },
+            alwaysShowLabel = false
+        )
+
+        NavigationRailItem(
+            selected = currentScreen == MainDestination.SETTINGS_ROUTE,
+            onClick = { onTabSelected(MainDestination.SETTINGS_ROUTE) },
+            icon = {
+                Icon(
+                    painter = painterResource(R.drawable.settings_filled),
+                    contentDescription = stringResource(R.string.settings_title)
+                )
+            },
+            label = { Text(stringResource(R.string.interests_title)) },
             alwaysShowLabel = false
         )
     }
