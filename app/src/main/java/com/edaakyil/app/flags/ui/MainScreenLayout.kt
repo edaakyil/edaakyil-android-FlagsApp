@@ -1,5 +1,8 @@
 package com.edaakyil.app.flags.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -37,10 +40,16 @@ fun MainScreenLayout(
             modifier = Modifier.padding(innerPadding).fillMaxSize()
         ) {
             if (isNavigationRailVisible) {
-                AppNavRail(
-                    currentScreen = currentScreen,
-                    onTabSelected = onNavigationItemSelected
-                )
+                AnimatedVisibility(
+                    visible = isNavigationRailVisible,
+                    enter = slideInHorizontally(initialOffsetX = { -it }),
+                    exit = slideOutHorizontally(targetOffsetX = { -it })
+                ) {
+                    AppNavRail(
+                        currentScreen = currentScreen,
+                        onTabSelected = onNavigationItemSelected
+                    )
+                }
             }
 
             content()
