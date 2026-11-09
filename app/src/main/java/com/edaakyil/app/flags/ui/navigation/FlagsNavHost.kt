@@ -3,10 +3,6 @@ package com.edaakyil.app.flags.ui.navigation
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,14 +10,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edaakyil.app.flags.ui.MainScreenLayout
 import com.edaakyil.app.flags.ui.home.HomeScreen
-import com.edaakyil.app.flags.ui.interests.InterestsScreen
-import com.edaakyil.app.flags.ui.quiz.QuizScreen
+import com.edaakyil.app.flags.ui.interests.SongScreen
+import com.edaakyil.app.flags.ui.quiz.QuizMenuScreen
 import com.edaakyil.app.flags.ui.settings.SettingsScreen
 
 @Composable
 fun FlagsNavHost(
-    navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController()
 ) {
 
 
@@ -44,7 +40,16 @@ fun FlagsNavHost(
                 currentScreen = MainDestination.INTERESTS_ROUTE,
                 onNavigationItemSelected = { navController.navigate(route = it) }
             ) {
-                InterestsScreen(Modifier.padding(it).fillMaxSize())
+                SongScreen(Modifier.padding(it).fillMaxSize())
+            }
+        }
+
+        composable(route = MainDestination.QUIZ_MENU_ROUTE) {
+            MainScreenLayout(
+                currentScreen = MainDestination.QUIZ_MENU_ROUTE,
+                onNavigationItemSelected = { navController.navigate(route = it) }
+            ) {
+                QuizMenuScreen(Modifier.padding(it).fillMaxSize())
             }
         }
 
@@ -53,7 +58,7 @@ fun FlagsNavHost(
                 currentScreen = MainDestination.QUIZ_ROUTE,
                 onNavigationItemSelected = { navController.navigate(route = it) }
             ) {
-                QuizScreen(Modifier.padding(it).fillMaxSize())
+                QuizMenuScreen(Modifier.padding(it).fillMaxSize())
             }
         }
 

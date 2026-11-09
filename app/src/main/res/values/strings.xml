@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">Flags</string>
 
+    <string name="exit">Exit</string>
+    <string name="back">Back</string>
+    <string name="skip">Skip</string>
+    <string name="submit">Submit</string>
+    <string name="forward">Forward</string>
+    <string name="star_icon">Star Icon</string>
     <string name="hamburger_menu">Hamburger Menu</string>
+    <string name="number_of_countries">%d Countries</string>
 
     <!-- Home Screen -->
     <string name="home_title">Home</string>
@@ -9,8 +16,13 @@
     <!-- Interests Screen -->
     <string name="interests_title">Interests</string>
 
+    <!-- Quiz Menu Screen -->
+    <string name="quiz_menu_title">Quiz Time</string>
+
     <!-- Quiz Screen -->
     <string name="quiz_title">Quiz</string>
+    <string name="game_score">Score: %d</string>
+    <string name="game_count">%d / 10</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
