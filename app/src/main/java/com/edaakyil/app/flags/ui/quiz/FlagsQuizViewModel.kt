@@ -1,6 +1,5 @@
 package com.edaakyil.app.flags.ui.quiz
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -25,9 +24,9 @@ class FlagsQuizViewModel : ViewModel() {
 
     init {
         resetQuiz()
-        Log.i("Model-init", "currentOptions:${_uiState.value.currentOptions}")
-        Log.i("Model-init", "currentCountry:${_uiState.value.currentCountry.name}")
-        Log.i("Model-init", "selectedCountry:${selectedCountry}")
+        //Log.i("Model-init", "currentOptions:${_uiState.value.currentOptions}")
+        //Log.i("Model-init", "currentCountry:${_uiState.value.currentCountry.name}")
+        //Log.i("Model-init", "selectedCountry:${selectedCountry}")
     }
 
     private fun pickRandomCountry(): Country {
@@ -78,9 +77,9 @@ class FlagsQuizViewModel : ViewModel() {
             }
         }
 
-        Log.i("Model-updateQuizState", "currentOptions:${_uiState.value.currentOptions}")
-        Log.i("Model-updateQuizState", "currentCountry:${_uiState.value.currentCountry.name}")
-        Log.i("Model-updateQuizState", "selectedCountry:${selectedCountry}")
+        //Log.i("Model-updateQuizState", "currentOptions:${_uiState.value.currentOptions}")
+        //Log.i("Model-updateQuizState", "currentCountry:${_uiState.value.currentCountry.name}")
+        //Log.i("Model-updateQuizState", "selectedCountry:${selectedCountry}")
     }
 
     /** Re-initializes the quiz data to restart the quiz. */

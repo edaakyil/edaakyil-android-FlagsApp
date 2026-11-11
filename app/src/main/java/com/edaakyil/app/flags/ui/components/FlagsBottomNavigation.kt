@@ -45,8 +45,8 @@ fun FlagsBottomNavigation(
         )
 
         NavigationBarItem(
-            selected = currentScreen == MainDestination.QUIZ_ROUTE,
-            onClick = { onTabSelected(MainDestination.QUIZ_ROUTE) },
+            selected = currentScreen == MainDestination.QUIZ_MENU_ROUTE,
+            onClick = { onTabSelected(MainDestination.QUIZ_MENU_ROUTE) },
             icon = {
                 Icon(
                     painter = painterResource(R.drawable.quiz),

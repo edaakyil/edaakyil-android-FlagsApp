@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.edaakyil.app.flags.ui.quiz.FlagsQuizScreen
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,10 +11,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            //FlagsApp()
-
             FlagsTheme {
-                FlagsQuizScreen()
+                FlagsApp()
             }
         }
     }

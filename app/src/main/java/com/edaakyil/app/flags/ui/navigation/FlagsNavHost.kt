@@ -2,10 +2,12 @@ package com.edaakyil.app.flags.ui.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.edaakyil.app.flags.ui.MainScreenLayout
 import com.edaakyil.app.flags.ui.home.HomeScreen
@@ -14,11 +16,10 @@ import com.edaakyil.app.flags.ui.quiz.QuizMenuScreen
 import com.edaakyil.app.flags.ui.settings.SettingsScreen
 
 @Composable
-fun FlagsNavHost(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
-) {
-
+fun FlagsNavHost(modifier: Modifier = Modifier, ) {
+    val navController: NavHostController = rememberNavController()
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestinationRoute = backStackEntry?.destination?.route
 
     NavHost(
         navController = navController,
@@ -52,14 +53,14 @@ fun FlagsNavHost(
             }
         }
 
-        composable(route = MainDestination.QUIZ_ROUTE) {
-            MainScreenLayout(
-                currentScreen = MainDestination.QUIZ_ROUTE,
-                onNavigationItemSelected = { navController.navigate(route = it) }
-            ) {
-                QuizMenuScreen(Modifier.fillMaxSize())
-            }
-        }
+//        composable(route = MainDestination.QUIZ_ROUTE) {
+//            MainScreenLayout(
+//                currentScreen = MainDestination.QUIZ_ROUTE,
+//                onNavigationItemSelected = { navController.navigate(route = it) }
+//            ) {
+//                QuizMenuScreen(Modifier.fillMaxSize())
+//            }
+//        }
 
         composable(route = MainDestination.SETTINGS_ROUTE) {
             /*MainScreenLayout(
