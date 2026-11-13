@@ -9,52 +9,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.edaakyil.app.flags.R
-import com.edaakyil.app.flags.ui.navigation.MainDestination
+import com.edaakyil.app.flags.ui.navigation.HomeDestination
+import com.edaakyil.app.flags.ui.navigation.NavigationBarDestination
+import com.edaakyil.app.flags.ui.navigation.navigationBottomBarDestinations
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 @Composable
 fun FlagsBottomNavigation(
-    currentScreen: String,
-    onTabSelected: (String) -> Unit,
+    allBarDestinations: List<NavigationBarDestination>,
+    currentDestination: NavigationBarDestination,
+    onTabSelected: (NavigationBarDestination) -> Unit, // Parameter may be String
     modifier: Modifier = Modifier
 ) {
+    // It may be BottomNavigation build-in composable function
     NavigationBar(modifier = modifier) {
-        NavigationBarItem(
-            selected = currentScreen == MainDestination.HOME_ROUTE,
-            onClick = { onTabSelected(MainDestination.HOME_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.home_filled),
-                    contentDescription = stringResource(R.string.home_title)
-                )
-            },
-            label = { Text(stringResource(R.string.home_title)) }
-        )
+        allBarDestinations.forEach {
+            val selected = it.route == currentDestination.route
 
-        NavigationBarItem(
-            selected = currentScreen == MainDestination.INTERESTS_ROUTE,
-            onClick = { onTabSelected(MainDestination.INTERESTS_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.list_alt_filled),
-                    contentDescription = stringResource(R.string.interests_title)
-                )
-            },
-            label = { Text(stringResource(R.string.interests_title)) }
-        )
-
-        NavigationBarItem(
-            selected = currentScreen == MainDestination.QUIZ_MENU_ROUTE,
-            onClick = { onTabSelected(MainDestination.QUIZ_MENU_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.quiz),
-                    contentDescription = stringResource(R.string.quiz_title)
-                )
-            },
-            label = { Text(stringResource(R.string.quiz_title)) }
-        )
+            // It may be BottomNavigationItem build-in composable function
+            NavigationBarItem(
+                selected = selected,
+                onClick = { onTabSelected(it) },
+                icon = {
+                    Icon(
+                        painter = painterResource(if (selected) it.filledIconRes else it.outlineIconRes),
+                        contentDescription = stringResource(it.titleResId)
+                    )
+                },
+                label = { Text(stringResource(it.titleResId)) }
+            )
+        }
     }
 }
 
@@ -62,6 +46,10 @@ fun FlagsBottomNavigation(
 @Composable
 private fun FlagsBottomNavigationPreview() {
     FlagsTheme {
-        FlagsBottomNavigation("home", {})
+        FlagsBottomNavigation(
+            allBarDestinations = navigationBottomBarDestinations,
+            currentDestination = HomeDestination,
+            onTabSelected = {}
+        )
     }
 }

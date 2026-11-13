@@ -30,20 +30,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edaakyil.app.flags.R
 import com.edaakyil.app.flags.data.ContinentsData
 import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
-enum class QuizType { Countries, Flags, Capital }
-
 @Composable
 fun QuizMenuScreen2(
-    onStartButtonClicked: (Continent, QuizType) -> Unit,
-    modifier: Modifier = Modifier
+    onStartButtonClicked: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: FlagsQuizViewModel = viewModel()
 ) {
-    var index by rememberSaveable { mutableIntStateOf(0) }
-    val options = listOf("Flags", "Countries", "Capitals")
+    var continentIndex by rememberSaveable { mutableIntStateOf(0) }
+    val quizTypes = listOf("Flags", "Capitals")
     var quizTypeIndex by rememberSaveable { mutableIntStateOf(0) }
 
     Column(
@@ -58,15 +58,15 @@ fun QuizMenuScreen2(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ContinentOptionElement(
-                    continent = ContinentsData.continentsList[index],
-                    onNextButtonClicked = { if (index < ContinentsData.continentsList.lastIndex) index++ else index = 0 },
-                    onPreviousButtonClicked = { if (index > 0) index-- else index = ContinentsData.continentsList.lastIndex },
+                    continent = ContinentsData.continentsList[continentIndex],
+                    onNextButtonClicked = { if (continentIndex < ContinentsData.continentsList.lastIndex) continentIndex++ else continentIndex = 0 },
+                    onPreviousButtonClicked = { if (continentIndex > 0) continentIndex-- else continentIndex = ContinentsData.continentsList.lastIndex },
                 )
 
                 SingleChoiceSegmentedButton(
-                    options = options,
+                    options = quizTypes,
                     selectedIndex = quizTypeIndex,
-                    onQuizTypeChanged = { quizTypeIndex = QuizType.Flags.ordinal },
+                    onQuizTypeChanged = { quizTypeIndex = it },
                     modifier = Modifier.padding(horizontal = 8.dp)
                 )
             }
@@ -75,7 +75,10 @@ fun QuizMenuScreen2(
         Spacer(Modifier.height(16.dp))
         
         Button(
-            onClick = { onStartButtonClicked(ContinentsData.continentsList[index], QuizType.entries.getOrNull(quizTypeIndex) ?: QuizType.Flags) },
+            onClick = {
+                viewModel.setContinent(ContinentsData.continentsList[continentIndex])
+                onStartButtonClicked(quizTypeIndex)
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Let's start")
@@ -155,17 +158,17 @@ fun SingleChoiceSegmentedButton(
     }
 }
 
-@Composable
-private fun QuizDropdownMenu(modifier: Modifier = Modifier) {
-
-}
+//@Composable
+//private fun QuizDropdownMenu(modifier: Modifier = Modifier) {
+//
+//}
 
 @Preview
 @Composable
 private fun QuizMenuScreen2Preview() {
     FlagsTheme {
         QuizMenuScreen2(
-            onStartButtonClicked = { _, _ -> }
+            onStartButtonClicked = {}
         )
     }
 }

@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,16 +15,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.edaakyil.app.flags.ui.components.AppNavRail
 import com.edaakyil.app.flags.ui.components.FlagsBottomNavigation
 import com.edaakyil.app.flags.ui.components.FlagsTopBar
-import com.edaakyil.app.flags.ui.theme.FlagsTheme
+import com.edaakyil.app.flags.ui.navigation.NavigationBarDestination
+import com.edaakyil.app.flags.ui.navigation.navigationBarDestinations
+import com.edaakyil.app.flags.ui.navigation.navigationBottomBarDestinations
 
 @Composable
 fun MainScreenLayout(
-    currentScreen: String,
-    onNavigationItemSelected: (String) -> Unit,
+    currentDestination: NavigationBarDestination,
+    onNavigationItemSelected: (NavigationBarDestination) -> Unit, // Parameter may be String
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
@@ -34,7 +34,13 @@ fun MainScreenLayout(
     Scaffold(
         modifier = modifier,
         topBar = { FlagsTopBar({ isNavigationRailVisible = !isNavigationRailVisible }) },
-        bottomBar =  { FlagsBottomNavigation(currentScreen, onNavigationItemSelected) }
+        bottomBar =  {
+            FlagsBottomNavigation(
+                allBarDestinations = navigationBottomBarDestinations,
+                currentDestination = currentDestination,
+                onTabSelected = onNavigationItemSelected
+            )
+        }
     ) { innerPadding ->
         Row(
             modifier = Modifier.padding(innerPadding).fillMaxSize()
@@ -46,7 +52,8 @@ fun MainScreenLayout(
                     exit = slideOutHorizontally(targetOffsetX = { -it })
                 ) {
                     AppNavRail(
-                        currentScreen = currentScreen,
+                        allDestinations = navigationBarDestinations,
+                        currentDestination = currentDestination,
                         onTabSelected = onNavigationItemSelected
                     )
                 }
@@ -66,15 +73,15 @@ fun DemoScreen(
     }
 }
 
-@Preview
-@Composable
-private fun MainScreenLayoutPreview() {
-    FlagsTheme {
-        MainScreenLayout(
-            currentScreen = "home",
-            onNavigationItemSelected = {},
-            modifier = Modifier.fillMaxSize(),
-            content = { DemoScreen() }
-        )
-    }
-}
+//@Preview
+//@Composable
+//private fun MainScreenLayoutPreview() {
+//    FlagsTheme {
+//        MainScreenLayout(
+//            currentScreen = "home",
+//            onNavigationItemSelected = {},
+//            modifier = Modifier.fillMaxSize(),
+//            content = { DemoScreen() }
+//        )
+//    }
+//}

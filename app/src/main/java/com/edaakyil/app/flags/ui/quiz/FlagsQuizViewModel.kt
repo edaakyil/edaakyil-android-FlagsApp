@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.edaakyil.app.flags.data.CountriesData
+import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.model.Country
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -121,5 +122,11 @@ class FlagsQuizViewModel : ViewModel() {
         updateQuizState(_uiState.value.score)
 
         updateUserGuess("")
+    }
+
+    fun setContinent(continent: Continent) {
+        _uiState.update { currentState ->
+            currentState.copy(continent = continent)
+        }
     }
 }

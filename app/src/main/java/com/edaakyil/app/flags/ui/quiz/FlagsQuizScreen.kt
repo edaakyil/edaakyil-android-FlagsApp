@@ -46,6 +46,7 @@ import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 @Composable
 fun FlagsQuizScreen(
+    //continentType: String,
     modifier: Modifier = Modifier,
     viewModel: FlagsQuizViewModel = viewModel()
 ) {
@@ -59,6 +60,8 @@ fun FlagsQuizScreen(
             .safeDrawingPadding()
             .padding(horizontal = 24.dp)
     ) {
+        Text("FlagsQuizScreen - continentType: ${uiState.continent.name}")
+
         Spacer(Modifier.height(48.dp))
 
         Column(

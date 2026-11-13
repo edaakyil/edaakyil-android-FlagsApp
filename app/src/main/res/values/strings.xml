@@ -24,9 +24,12 @@
     <string name="game_score">Score: %d</string>
     <string name="game_count">%d / 10</string>
 
+    <!-- Flags Quiz Screen -->
+    <string name="flags_quiz_title">Flags Quiz</string>
+
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
 
-    <!-- About Me Screen -->
-    <string name="about_me_title">About Me Screen</string>
+    <!-- About Me / Info Screen -->
+    <string name="info_title">About Me Screen</string>
 </resources>

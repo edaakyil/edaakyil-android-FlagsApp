@@ -1,5 +1,7 @@
 package com.edaakyil.app.flags.ui.components
 
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
@@ -9,14 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.edaakyil.app.flags.R
-import com.edaakyil.app.flags.ui.navigation.MainDestination
+import com.edaakyil.app.flags.ui.navigation.HomeDestination
+import com.edaakyil.app.flags.ui.navigation.InfoDestination
+import com.edaakyil.app.flags.ui.navigation.NavigationBarDestination
+import com.edaakyil.app.flags.ui.navigation.navigationBarDestinations
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 @Composable
 fun AppNavRail(
-    currentScreen: String,
-    onTabSelected: (String) -> Unit,
+    allDestinations: List<NavigationBarDestination>,
+    currentDestination: NavigationBarDestination,
+    onTabSelected: (NavigationBarDestination) -> Unit, // Parameter may be String
     modifier: Modifier = Modifier
 ) {
     NavigationRail(
@@ -26,74 +33,28 @@ fun AppNavRail(
                 contentDescription = null
             )
         },
-        modifier = modifier
+        modifier = modifier.widthIn(max = 80.dp)
     ) {
-        //HorizontalDivider()
-        /*
-        (1..5).toList().forEach { NavigationRailItem(
-            selected = false,
-            onClick = {},
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.home_filled),
-                    contentDescription = stringResource(R.string.home_title)
-                )
-            },
-            label = { Text(stringResource(R.string.home_title)) },
-            alwaysShowLabel = false
-        ) }*/
+        HorizontalDivider()
 
-        NavigationRailItem(
-            selected = currentScreen == MainDestination.HOME_ROUTE,
-            onClick = { onTabSelected(MainDestination.HOME_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.home_filled),
-                    contentDescription = stringResource(R.string.home_title)
-                )
-            },
-            label = { Text(stringResource(R.string.home_title)) },
-            alwaysShowLabel = false
-        )
+        allDestinations.forEach {
+            if (it == InfoDestination) {
+                HorizontalDivider()
+            }
 
-        NavigationRailItem(
-            selected = currentScreen == MainDestination.INTERESTS_ROUTE,
-            onClick = { onTabSelected(MainDestination.INTERESTS_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.list_alt_filled),
-                    contentDescription = stringResource(R.string.interests_title)
-                )
-            },
-            label = { Text(stringResource(R.string.interests_title)) },
-            alwaysShowLabel = false
-        )
-
-        NavigationRailItem(
-            selected = currentScreen == MainDestination.QUIZ_ROUTE,
-            onClick = { onTabSelected(MainDestination.QUIZ_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.quiz),
-                    contentDescription = stringResource(R.string.quiz_title)
-                )
-            },
-            label = { Text(stringResource(R.string.quiz_title)) },
-            alwaysShowLabel = false
-        )
-
-        NavigationRailItem(
-            selected = currentScreen == MainDestination.SETTINGS_ROUTE,
-            onClick = { onTabSelected(MainDestination.SETTINGS_ROUTE) },
-            icon = {
-                Icon(
-                    painter = painterResource(R.drawable.settings_filled),
-                    contentDescription = stringResource(R.string.settings_title)
-                )
-            },
-            label = { Text(stringResource(R.string.interests_title)) },
-            alwaysShowLabel = false
-        )
+            NavigationRailItem(
+                selected = it.route == currentDestination.route,
+                alwaysShowLabel = false,
+                onClick = { onTabSelected(it) },
+                label = { Text(stringResource(it.titleResId)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(if (it.route == currentDestination.route) it.filledIconRes else it.outlineIconRes),
+                        contentDescription = stringResource(it.titleResId)
+                    )
+                }
+            )
+        }
     }
 }
 
@@ -101,6 +62,10 @@ fun AppNavRail(
 @Composable
 fun AppNavRailPreview() {
     FlagsTheme {
-        AppNavRail("home", {})
+        AppNavRail(
+            allDestinations = navigationBarDestinations,
+            currentDestination = HomeDestination,
+            onTabSelected = {}
+        )
     }
 }
