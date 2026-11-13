@@ -7,18 +7,19 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.edaakyil.app.flags.ui.MainScreenLayout
 import com.edaakyil.app.flags.ui.home.HomeScreen
 import com.edaakyil.app.flags.ui.interests.SongScreen
 import com.edaakyil.app.flags.ui.quiz.CapitalsQuizScreen
 import com.edaakyil.app.flags.ui.quiz.FlagsQuizScreen
-import com.edaakyil.app.flags.ui.quiz.QuizMenuScreen2
+import com.edaakyil.app.flags.ui.quiz.QuizMenuScreen
 import com.edaakyil.app.flags.ui.settings.SettingsScreen
 
 @Composable
-fun FlagsNavHost(modifier: Modifier = Modifier) {
-    val navController: NavHostController = rememberNavController()
+fun FlagsNavHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
     //val backStackEntry by navController.currentBackStackEntryAsState()
     //val currentRoute = backStackEntry?.destination?.route
     //val currentScreen = navigationBarDestinations.find { it.route == currentRoute } ?: HomeDestination
@@ -51,8 +52,8 @@ fun FlagsNavHost(modifier: Modifier = Modifier) {
                 currentDestination = QuizMenuDestination,
                 onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
             ) {
-                QuizMenuScreen2(
-                    onStartButtonClicked = { index -> navController.navigateToQuiz(index) },
+                QuizMenuScreen(
+                    onStartButtonClicked = { quiz, continent-> navController.navigateToQuiz(quiz, continent) },
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -63,37 +64,16 @@ fun FlagsNavHost(modifier: Modifier = Modifier) {
             arguments = QuizDestination.arguments,
             deepLinks = QuizDestination.deepLinks
         ) { navBackStackEntry ->
-            val quizTypeIndexArg = navBackStackEntry.arguments?.getInt(QuizDestination.quizTypeIndexArg)
-            //val continentType = navBackStackEntry.arguments?.getString(QuizDestination.continentTypeArg)
+            val quizTypeIndex = navBackStackEntry.arguments?.getInt(QuizDestination.quizTypeArg) ?: 0
+            val continentTypeIndex = navBackStackEntry.arguments?.getInt(QuizDestination.continentTypeArg) ?: 0
 
-            /*when (quizType) {
-                "flags" -> FlagsQuizScreen(continentType = continentType)
-                "capitals" -> CapitalsQuizScreen(continentType = continentType)
-            }*/
-
-            when (quizTypeIndexArg) {
-                0 -> FlagsQuizScreen()
-                else -> CapitalsQuizScreen()
+            when (quizTypeIndex) {
+                0 -> FlagsQuizScreen(continentIndex = continentTypeIndex, modifier = Modifier.fillMaxSize())
+                else -> CapitalsQuizScreen(continentIndex = continentTypeIndex, modifier = Modifier.fillMaxSize())
             }
         }
 
-//        composable(route = MainDestination.QUIZ_ROUTE) {
-//            MainScreenLayout(
-//                currentScreen = MainDestination.QUIZ_ROUTE,
-//                onNavigationItemSelected = { navController.navigate(route = it) }
-//            ) {
-//                QuizMenuScreen(Modifier.fillMaxSize())
-//            }
-//        }
-
         composable(route = SettingsDestination.route) {
-            /*MainScreenLayout(
-                currentScreen = MainDestination.SETTINGS_ROUTE,
-                onNavigationItemSelected = { navController.navigate(route = it) }
-            ) {
-                SettingsScreen(Modifier.padding(it).fillMaxSize())
-            }*/
-
             SettingsScreen(Modifier.fillMaxSize())
         }
     }
@@ -109,6 +89,6 @@ private fun NavHostController.navigateSingleTopTo(route: String) = this.navigate
     }
 }
 
-private fun NavHostController.navigateToQuiz(quizTypeIndex: Int) {
-    this.navigateSingleTopTo("${QuizDestination.route}/$quizTypeIndex")
+private fun NavHostController.navigateToQuiz(quizTypeIndex: Int, continentIndex: Int) {
+    this.navigateSingleTopTo("${QuizDestination.route}/$quizTypeIndex/$continentIndex")
 }

@@ -46,10 +46,11 @@ import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 @Composable
 fun FlagsQuizScreen(
-    //continentType: String,
+    continentIndex: Int,
     modifier: Modifier = Modifier,
     viewModel: FlagsQuizViewModel = viewModel()
 ) {
+    viewModel.setContinent(continentIndex)
     val uiState by viewModel.uiState.collectAsState()
     //val options = CountriesData.southAmericaCountries.take(4).map { it.name }
     //val (selectedOption, onOptionSelected) = rememberSaveable { mutableStateOf(options[0]) }
@@ -238,6 +239,6 @@ private fun OptionButton(
 @Composable
 private fun FlagsQuizScreenPreview() {
     FlagsTheme {
-        FlagsQuizScreen()
+        FlagsQuizScreen(2)
     }
 }

@@ -4,8 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.edaakyil.app.flags.data.ContinentsData
 import com.edaakyil.app.flags.data.CountriesData
-import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.model.Country
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,9 +25,6 @@ class FlagsQuizViewModel : ViewModel() {
 
     init {
         resetQuiz()
-        //Log.i("Model-init", "currentOptions:${_uiState.value.currentOptions}")
-        //Log.i("Model-init", "currentCountry:${_uiState.value.currentCountry.name}")
-        //Log.i("Model-init", "selectedCountry:${selectedCountry}")
     }
 
     private fun pickRandomCountry(): Country {
@@ -77,10 +74,6 @@ class FlagsQuizViewModel : ViewModel() {
                 )
             }
         }
-
-        //Log.i("Model-updateQuizState", "currentOptions:${_uiState.value.currentOptions}")
-        //Log.i("Model-updateQuizState", "currentCountry:${_uiState.value.currentCountry.name}")
-        //Log.i("Model-updateQuizState", "selectedCountry:${selectedCountry}")
     }
 
     /** Re-initializes the quiz data to restart the quiz. */
@@ -124,9 +117,9 @@ class FlagsQuizViewModel : ViewModel() {
         updateUserGuess("")
     }
 
-    fun setContinent(continent: Continent) {
+    fun setContinent(continentIndex: Int) {
         _uiState.update { currentState ->
-            currentState.copy(continent = continent)
+            currentState.copy(continent = ContinentsData.continentsList[continentIndex])
         }
     }
 }

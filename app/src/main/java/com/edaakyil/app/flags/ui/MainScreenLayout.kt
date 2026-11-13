@@ -3,12 +3,10 @@ package com.edaakyil.app.flags.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,7 +54,7 @@ fun MainScreenLayout(
                     AppNavRail(
                         allDestinations = navigationBarDestinations,
                         currentDestination = currentDestination,
-                        onTabSelected = { it ->
+                        onTabSelected = {
                             isNavigationRailVisible = !isNavigationRailVisible
                             onNavigationItemSelected(it)
                         }
@@ -66,15 +64,6 @@ fun MainScreenLayout(
 
             content()
         }
-    }
-}
-
-@Composable
-fun DemoScreen(
-    modifier: Modifier = Modifier,
-) {
-    Column(modifier = modifier) {
-        Text("DemoContentScreen")
     }
 }
 

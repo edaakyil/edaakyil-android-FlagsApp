@@ -1,103 +1,169 @@
 package com.edaakyil.app.flags.ui.quiz
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.paddingFromBaseline
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.edaakyil.app.flags.R
+import com.edaakyil.app.flags.data.ContinentsData
+import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
-private val quizList = listOf("Countries", "Flags")
-private val quizSubTitlesList = listOf("North America", "South America", "Europe", "Asia", "Africa", "Australia", "Antarctica", "Mixed")
-
 @Composable
-fun QuizMenuScreen(modifier: Modifier = Modifier) {
+fun QuizMenuScreen(
+    onStartButtonClicked: (Int, Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var continentIndex by rememberSaveable { mutableIntStateOf(0) }
+    val quizTypes = listOf("Flags", "Capitals")
+    var quizTypeIndex by rememberSaveable { mutableIntStateOf(0) }
+
     Column(
-        modifier = modifier.padding(top = 24.dp),
+        modifier = modifier.padding(all = 24.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var expandedCardId by rememberSaveable { mutableStateOf<Int?>(null) }
+        Card(modifier = Modifier) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ContinentOptionElement(
+                    continent = ContinentsData.continentsList[continentIndex],
+                    onNextButtonClicked = { if (continentIndex < ContinentsData.continentsList.lastIndex) continentIndex++ else continentIndex = 0 },
+                    onPreviousButtonClicked = { if (continentIndex > 0) continentIndex-- else continentIndex = ContinentsData.continentsList.lastIndex },
+                )
 
-        Text(
-            text = stringResource(R.string.quiz_menu_title),
-            style = MaterialTheme.typography.headlineLarge,
-            fontStyle = FontStyle.Italic,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
+                SingleChoiceSegmentedButton(
+                    options = quizTypes,
+                    selectedIndex = quizTypeIndex,
+                    onQuizTypeChanged = { quizTypeIndex = it },
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+            }
+        }
 
-        quizList.forEachIndexed { index, item ->
-            val isExpanded = expandedCardId == index
+        Spacer(Modifier.height(16.dp))
+        
+        Button(
+            onClick = { onStartButtonClicked(quizTypeIndex, continentIndex) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Let's start")
+        }
+    }
+}
 
-            QuizMenuCard(
-                quizTitle = item,
-                subtitles = quizSubTitlesList,
-                isCardClicked = isExpanded,
-                onCardClicked = { expandedCardId = index },
-                modifier = Modifier.fillMaxWidth()
+@Composable
+fun ContinentOptionElement(
+    continent: Continent,
+    onNextButtonClicked: () -> Unit,
+    onPreviousButtonClicked: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        IconButton(
+            onClick = onPreviousButtonClicked,
+            modifier = Modifier.offset(y = 8.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.arrow_back_ios),
+                contentDescription = stringResource(R.string.back)
+            )
+        }
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = continent.name,
+                modifier = Modifier.paddingFromBaseline(bottom = 16.dp)
+            )
+
+            Image(
+                painter = painterResource(continent.imageResId),
+                contentDescription = continent.name,
+                contentScale = ContentScale.Fit,
+            )
+        }
+
+        IconButton(
+            onClick = onNextButtonClicked,
+            modifier = Modifier.offset(y = 8.dp)
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.arrow_forward_ios),
+                contentDescription = stringResource(R.string.forward)
             )
         }
     }
 }
 
 @Composable
-private fun QuizMenuCard(
-    quizTitle: String,
-    subtitles: List<String>,
-    isCardClicked: Boolean,
-    onCardClicked: () -> Unit,
+fun SingleChoiceSegmentedButton(
+    options: List<String>,
+    selectedIndex: Int,
+    onQuizTypeChanged: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-    ) {
-        ElevatedCard(
-            onClick = onCardClicked,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = quizTitle,
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+    SingleChoiceSegmentedButtonRow(modifier = modifier) {
+        options.forEachIndexed { index, label ->
+            SegmentedButton(
+                selected = index == selectedIndex,
+                onClick = { onQuizTypeChanged(index) },
+                label = { Text(text = label) },
+                shape = SegmentedButtonDefaults.itemShape(
+                    index = index,
+                    count = options.size
+                )
             )
-        }
-
-        if (isCardClicked) {
-            subtitles.forEachIndexed { index, item ->
-                Text(item)
-
-                if (index < subtitles.lastIndex) {
-                    HorizontalDivider(
-                        color = Color(0xFFD0C6D2),
-                        thickness = 1.dp
-                    )
-                }
-            }
         }
     }
 }
+
+//@Composable
+//private fun QuizDropdownMenu(modifier: Modifier = Modifier) {
+//
+//}
 
 @Preview
 @Composable
 private fun QuizMenuScreenPreview() {
     FlagsTheme {
-        QuizMenuScreen()
+        QuizMenuScreen(
+            onStartButtonClicked = { _, _ -> }
+        )
     }
 }

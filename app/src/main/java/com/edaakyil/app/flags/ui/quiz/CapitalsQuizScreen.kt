@@ -13,10 +13,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun CapitalsQuizScreen(
-    //continentType: String,
+    continentIndex: Int,
     modifier: Modifier = Modifier,
     viewModel: FlagsQuizViewModel = viewModel()
 ) {
+    viewModel.setContinent(continentIndex)
     val uiState by viewModel.uiState.collectAsState()
 
     Column(

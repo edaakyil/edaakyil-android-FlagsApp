@@ -75,27 +75,14 @@ data object QuizMenuDestination : NavigationBarDestination {
 data object QuizDestination : NavigationDestination {
     override val route = "quiz"
     override val titleResId = R.string.quiz_title
-    const val quizTypeIndexArg = "quiz_type"
-    val routeWithArgs = "$route/{$quizTypeIndexArg}"
-    val arguments = listOf(
-        navArgument(quizTypeIndexArg) { type = NavType.IntType },
-    )
-    val deepLinks = listOf(
-        navDeepLink { uriPattern = "flags://$route/{$quizTypeIndexArg}" }
-    )
-
-    /*const val continentTypeArg = "continent_type_arg"
+    const val quizTypeArg = "quiz_type"
+    const val continentTypeArg = "continent_type"
     val routeWithArgs = "$route/{$quizTypeArg}/{$continentTypeArg}"
     val arguments = listOf(
-        navArgument(quizTypeArg) { type = NavType.StringType},
-        navArgument(continentTypeArg) { type = NavType.StringType}
+        navArgument(quizTypeArg) { type = NavType.IntType },
+        navArgument(continentTypeArg) { type = NavType.IntType },
     )
     val deepLinks = listOf(
         navDeepLink { uriPattern = "flags://$route/{$quizTypeArg}/{$continentTypeArg}" }
-    )*/
-}
-
-data object FlagsQuizDestination : NavigationDestination {
-    override val route: String = "flagsQuiz"
-    override val titleResId: Int = R.string.flags_quiz_title
+    )
 }
