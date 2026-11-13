@@ -17,7 +17,6 @@
 - Quiz sayfaları için continent bilgisi ViewModel sınıflarına aktarılacak
 - Quiz tamamlandığında yapılacak işlem
 - System Back arrow butonu ile Quiz sayfalarından QuizMenu sayfasına geçiş
-- AppNavRail otomatik kapanma sorunu
 
 
 

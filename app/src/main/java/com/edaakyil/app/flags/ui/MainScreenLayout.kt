@@ -43,7 +43,9 @@ fun MainScreenLayout(
         }
     ) { innerPadding ->
         Row(
-            modifier = Modifier.padding(innerPadding).fillMaxSize()
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
             if (isNavigationRailVisible) {
                 AnimatedVisibility(
@@ -54,7 +56,10 @@ fun MainScreenLayout(
                     AppNavRail(
                         allDestinations = navigationBarDestinations,
                         currentDestination = currentDestination,
-                        onTabSelected = onNavigationItemSelected
+                        onTabSelected = { it ->
+                            isNavigationRailVisible = !isNavigationRailVisible
+                            onNavigationItemSelected(it)
+                        }
                     )
                 }
             }
