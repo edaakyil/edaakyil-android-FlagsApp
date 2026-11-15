@@ -65,11 +65,11 @@ fun FlagsNavHost(
             deepLinks = QuizDestination.deepLinks
         ) { navBackStackEntry ->
             val quizTypeIndex = navBackStackEntry.arguments?.getInt(QuizDestination.quizTypeArg) ?: 0
-            val continentTypeIndex = navBackStackEntry.arguments?.getInt(QuizDestination.continentTypeArg) ?: 0
+            //val continentTypeIndex = navBackStackEntry.arguments?.getInt(QuizDestination.continentTypeArg) ?: 0
 
             when (quizTypeIndex) {
-                0 -> FlagsQuizScreen(continentIndex = continentTypeIndex, modifier = Modifier.fillMaxSize())
-                else -> CapitalsQuizScreen(continentIndex = continentTypeIndex, modifier = Modifier.fillMaxSize())
+                0 -> FlagsQuizScreen(modifier = Modifier.fillMaxSize())
+                else -> CapitalsQuizScreen(modifier = Modifier.fillMaxSize())
             }
         }
 
@@ -90,5 +90,10 @@ private fun NavHostController.navigateSingleTopTo(route: String) = this.navigate
 }
 
 private fun NavHostController.navigateToQuiz(quizTypeIndex: Int, continentIndex: Int) {
-    this.navigateSingleTopTo("${QuizDestination.route}/$quizTypeIndex/$continentIndex")
+    this.navigate("${QuizDestination.route}/$quizTypeIndex/$continentIndex") {
+        launchSingleTop = true
+        popUpTo(QuizMenuDestination.route) {
+            inclusive = false
+        }
+    }
 }

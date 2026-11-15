@@ -42,14 +42,16 @@ fun AppNavRail(
                 HorizontalDivider()
             }
 
+            val selected = it.route == currentDestination.route
+
             NavigationRailItem(
-                selected = it.route == currentDestination.route,
+                selected = selected,
                 alwaysShowLabel = false,
                 onClick = { onTabSelected(it) },
                 label = { Text(stringResource(it.titleResId)) },
                 icon = {
                     Icon(
-                        painter = painterResource(if (it.route == currentDestination.route) it.filledIconRes else it.outlineIconRes),
+                        painter = painterResource(if (selected) it.filledIconRes else it.outlineIconRes),
                         contentDescription = stringResource(it.titleResId)
                     )
                 }

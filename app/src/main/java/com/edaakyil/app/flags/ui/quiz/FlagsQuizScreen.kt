@@ -38,7 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.edaakyil.app.flags.R
 import com.edaakyil.app.flags.ui.components.QuizButtonGroup
 import com.edaakyil.app.flags.ui.components.StarButton
@@ -46,11 +46,9 @@ import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 @Composable
 fun FlagsQuizScreen(
-    continentIndex: Int,
     modifier: Modifier = Modifier,
-    viewModel: FlagsQuizViewModel = viewModel()
+    viewModel: FlagsQuizViewModel = hiltViewModel()
 ) {
-    viewModel.setContinent(continentIndex)
     val uiState by viewModel.uiState.collectAsState()
     //val options = CountriesData.southAmericaCountries.take(4).map { it.name }
     //val (selectedOption, onOptionSelected) = rememberSaveable { mutableStateOf(options[0]) }
@@ -61,8 +59,6 @@ fun FlagsQuizScreen(
             .safeDrawingPadding()
             .padding(horizontal = 24.dp)
     ) {
-        Text("FlagsQuizScreen - continentType: ${uiState.continent.name}")
-
         Spacer(Modifier.height(48.dp))
 
         Column(
@@ -239,6 +235,6 @@ private fun OptionButton(
 @Composable
 private fun FlagsQuizScreenPreview() {
     FlagsTheme {
-        FlagsQuizScreen(2)
+        FlagsQuizScreen()
     }
 }

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp") // KSP eklentisi
+    id("com.google.dagger.hilt.android") // Hilt eklentisi
 }
 
 android {
@@ -59,4 +61,10 @@ dependencies {
 
     // For ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0")
+
+    // For Hilt
+    implementation("com.google.dagger:hilt-android:2.60.1") // implementation(libs.hilt.android)
+    ksp("com.google.dagger:hilt-compiler:2.60.1") // ksp(libs.hilt.compiler)
+    //implementation("androidx.hilt:androidx-hilt-navigation-compose:1.2.0") // implementation(libs.androidx.hilt.navigation.compose)
+    implementation("androidx.hilt:hilt-navigation-compose:1.4.0") // implementation(libs.androidx.hilt.navigation.compose)
 }

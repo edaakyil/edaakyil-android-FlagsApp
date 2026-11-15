@@ -3,23 +3,31 @@ package com.edaakyil.app.flags.ui.quiz
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.edaakyil.app.flags.data.ContinentsData
-import com.edaakyil.app.flags.data.CountriesData
+import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.model.Country
+import com.edaakyil.app.flags.ui.navigation.QuizDestination
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class FlagsQuizViewModel : ViewModel() {
-    /** Flags Quiz UI state */
-    private val _uiState = MutableStateFlow(FlagsQuizUIState())
-    val uiState: StateFlow<FlagsQuizUIState> = _uiState.asStateFlow()
-
+@HiltViewModel
+class FlagsQuizViewModel @Inject constructor(handle: SavedStateHandle) : ViewModel() {
+    private val continentId: Int = checkNotNull(handle[QuizDestination.continentTypeArg])
+    private val continent: Continent = ContinentsData.continentsList[continentId]
+    private val countries = continent.countries
     private var usedCountries: MutableSet<Country> = mutableSetOf()
     private lateinit var selectedCountry: Country
     //private lateinit var selectedOptions: Set<String>
+
+    /** Flags Quiz UI state */
+    private val _uiState = MutableStateFlow(FlagsQuizUIState(currentCountry = pickRandomCountry()))
+    val uiState: StateFlow<FlagsQuizUIState> = _uiState.asStateFlow()
     var userGuess by mutableStateOf("")
         private set
 
@@ -28,9 +36,7 @@ class FlagsQuizViewModel : ViewModel() {
     }
 
     private fun pickRandomCountry(): Country {
-        selectedCountry = CountriesData.southAmericaCountries.random()
-
-        //Log.i("pickRandomCountry", "currentCountry:${_uiState.value.currentCountry.name}")
+        selectedCountry = countries.random()
 
         return if (usedCountries.contains(selectedCountry)) {
             pickRandomCountry()
@@ -41,12 +47,7 @@ class FlagsQuizViewModel : ViewModel() {
     }
 
     private fun specifyOptions(country: Country): Set<String> {
-        /*val randomThree = _uiState.value.continent.countries
-            .filter { it.id != _uiState.value.currentCountry.id }
-            .shuffled()
-            .take(3)*/
-
-        val randomThree = _uiState.value.continent.countries
+        val randomThree = countries
             .filter { it.id != country.id }
             .shuffled()
             .take(3)
@@ -56,7 +57,7 @@ class FlagsQuizViewModel : ViewModel() {
 
     private fun updateQuizState(updatedScore: Int) {
         _uiState.update { currentState ->
-            if (usedCountries.size == _uiState.value.continent.countries.size) {
+            if (usedCountries.size == countries.size) {
                 currentState.copy(
                     isGameOver = true,
                     isGuessWrong = false,
@@ -113,13 +114,6 @@ class FlagsQuizViewModel : ViewModel() {
     /** Skip to next flag */
     fun skipFlag() {
         updateQuizState(_uiState.value.score)
-
         updateUserGuess("")
-    }
-
-    fun setContinent(continentIndex: Int) {
-        _uiState.update { currentState ->
-            currentState.copy(continent = ContinentsData.continentsList[continentIndex])
-        }
     }
 }

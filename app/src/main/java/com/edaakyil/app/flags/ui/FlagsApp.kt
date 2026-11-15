@@ -11,8 +11,6 @@ import com.edaakyil.app.flags.ui.theme.FlagsTheme
 fun FlagsApp() {
     FlagsTheme {
         val navController: NavHostController = rememberNavController()
-        //val currentBackStack by navController.currentBackStackEntryAsState()
-        //val currentDestination = currentBackStack?.destination?.route
 
         FlagsNavHost(navController = navController)
     }
