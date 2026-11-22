@@ -7,7 +7,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.edaakyil.app.flags.data.ContinentsData
 import com.edaakyil.app.flags.ui.components.MainScreenSlot
 import com.edaakyil.app.flags.ui.details.DetailsScreen
 import com.edaakyil.app.flags.ui.home.HomeScreen
@@ -57,13 +56,10 @@ fun FlagsNavHost(
             arguments = DetailsDestination.arguments,
             deepLinks = DetailsDestination.deepLinks
         ) { navBackStackEntry ->
-            val continentIndex = navBackStackEntry.arguments?.getInt(DetailsDestination.continentTypeArg) ?: 0
-            val continent = ContinentsData.continentsList[continentIndex]
-            val countries = continent.countries.toList()
+            val continentIndex = navBackStackEntry.arguments?.getInt(DetailsDestination.continentIndexArg) ?: 0
 
             DetailsScreen(
-                continent = continent,
-                countriesList = countries,
+                continentIndex = continentIndex,
                 modifier = Modifier.fillMaxSize()
             )
         }

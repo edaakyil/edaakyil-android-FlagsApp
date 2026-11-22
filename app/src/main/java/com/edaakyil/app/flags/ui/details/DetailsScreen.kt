@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,41 +31,68 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_XL
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.edaakyil.app.flags.R
 import com.edaakyil.app.flags.data.ContinentsData
-import com.edaakyil.app.flags.data.CountriesData
-import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.model.Country
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
+import com.edaakyil.app.flags.ui.theme.bottomShadow
 
 @Composable
 fun DetailsScreen(
-    continent: Continent,
-    countriesList: List<Country>,
+    continentIndex: Int,
     modifier: Modifier = Modifier
 ) {
+    val continent = ContinentsData.continentsList[continentIndex]
+    val countries = continent.countries.toList()
     var openDetailsDialog by rememberSaveable { mutableStateOf(false) }
     var selectedCountryIndex by rememberSaveable { mutableIntStateOf(0) }
-    
-    Text(continent.name)
 
-    DetailsList(
-        countriesList = countriesList,
-        onImageClicked = { index ->
-            selectedCountryIndex = index
-            openDetailsDialog = !openDetailsDialog
-        },
-        modifier = modifier
-    )
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Surface(
+            color = Color.Transparent,
+            modifier = Modifier
+                .fillMaxWidth()
+                .bottomShadow(
+                    height = 3.dp,
+                    color = Color.Black.copy(alpha = 0.1f)
+                )
+        ) {
+            Text(
+                text = continent.name,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.SemiBold,
+                fontStyle = FontStyle.Italic,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 24.dp, bottom = 8.dp)
+            )
+        }
 
-    if (openDetailsDialog) {
-        DetailsDialogElement(
-            country = countriesList[selectedCountryIndex],
-            onDismissRequest = { openDetailsDialog = false }
+        Spacer(Modifier.height(8.dp))
+
+        DetailsList(
+            countriesList = countries,
+            onImageClicked = { index ->
+                selectedCountryIndex = index
+                openDetailsDialog = !openDetailsDialog
+            },
+            modifier = Modifier.weight(1f)
         )
+
+        if (openDetailsDialog) {
+            DetailsDialogElement(
+                country = countries[selectedCountryIndex],
+                onDismissRequest = { openDetailsDialog = false }
+            )
+        }
     }
 }
 
@@ -119,7 +148,9 @@ private fun CountryDetailsCard(
         Spacer(Modifier.width(16.dp))
 
         Column(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
             horizontalAlignment = Alignment.Start
         ) {
 
@@ -144,9 +175,7 @@ private fun CountryDetailsCard(
 @Preview(device = PIXEL_XL)
 @Composable
 private fun DetailsScreenPreview() {
-    val countries = CountriesData.southAmericaCountries.toList()
-
     FlagsTheme {
-        DetailsScreen(continent = ContinentsData.continentsList[2], countriesList = countries)
+        DetailsScreen(continentIndex = 2)
     }
 }

@@ -90,12 +90,12 @@ data object QuizDestination : NavigationDestination {
 data object DetailsDestination : NavigationDestination {
     override val route = "details"
     override val titleResId = R.string.details_title
-    const val continentTypeArg = "continent_type"
-    val routeWithArgs = "$route/{$continentTypeArg}"
+    const val continentIndexArg = "continent_index"
+    val routeWithArgs = "$route/{$continentIndexArg}"
     val arguments = listOf(
-        navArgument(continentTypeArg) { type = NavType.IntType }
+        navArgument(continentIndexArg) { type = NavType.IntType }
     )
     val deepLinks = listOf(
-        navDeepLink { uriPattern = "flags://$route/{$continentTypeArg}" }
+        navDeepLink { uriPattern = "flags://$route/{$continentIndexArg}" }
     )
 }
