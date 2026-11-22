@@ -10,7 +10,7 @@ object CountriesData {
         Country(id = 3, name = "Brazil", capital = "Brasília", flagResId = R.drawable.flag_of_brazil_svg),
         Country(id = 4, name = "Chile", capital = "Santiago", flagResId = R.drawable.flag_of_chile_svg),
         Country(id = 5, name = "Colombia", capital = "Bogotá", flagResId = R.drawable.flag_of_colombia_svg),
-        Country(id = 6, name = "Ecuador", capital = "Quito[", flagResId = R.drawable.flag_of_ecuador_svg),
+        Country(id = 6, name = "Ecuador", capital = "Quito", flagResId = R.drawable.flag_of_ecuador_svg),
         Country(id = 7, name = "Guyana", capital = "Georgetown", flagResId = R.drawable.flag_of_guyana_svg),
         Country(id = 8, name = "Paraguay", capital = "Asunción", flagResId = R.drawable.flag_of_paraguay_svg),
         Country(id = 9, name = "Peru", capital = "Lima", flagResId = R.drawable.flag_of_peru_svg),
@@ -22,6 +22,7 @@ object CountriesData {
     //fun getCountryFromSouthAmerica(countryName: String): Country = southAmericaCountries.find { it.name == countryName } ?: southAmericaCountries[0]
 }
 
+/*
 val africanCountries = listOf(
     "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso",
     "Burundi", "Cameroon", "Cape Verde", "Central African Republic", "Chad",
@@ -35,3 +36,4 @@ val africanCountries = listOf(
     "South Africa", "South Sudan", "Sudan", "Tanzania", "Togo",
     "Tunisia", "Uganda", "Zambia", "Zimbabwe"
 )
+*/

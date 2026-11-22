@@ -13,6 +13,12 @@
     <!-- Home Screen -->
     <string name="home_title">Home</string>
 
+    <!-- Details Screen -->
+    <string name="details_title">Details</string>
+    <string name="capital">Capital: %s</string>
+    <string name="country_code">Country Code: %s</string>
+    <string name="languages">Languages: %s</string>
+
     <!-- Interests Screen -->
     <string name="interests_title">Interests</string>
 

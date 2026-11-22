@@ -1,7 +1,6 @@
 package com.edaakyil.app.flags.ui.interests
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -30,8 +29,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_XL
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
+/*
 @Composable
 fun InterestsScreen(modifier: Modifier = Modifier) {
     Column(
@@ -42,7 +45,7 @@ fun InterestsScreen(modifier: Modifier = Modifier) {
         Text("InterestsScreen")
     }
 }
-
+*/
 
 data class Song(
     val title: String,
@@ -104,9 +107,6 @@ fun SongScreen(
         }
     }
 }
-
-
-
 
 @Composable
 fun ConcertCard(
@@ -206,5 +206,14 @@ fun SongItem(
                 modifier = Modifier.size(32.dp)
             )
         }
+    }
+}
+
+
+@Preview(device = PIXEL_XL)
+@Composable
+private fun SongScreenPreview() {
+    FlagsTheme {
+        SongScreen()
     }
 }
