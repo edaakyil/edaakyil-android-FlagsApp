@@ -96,6 +96,6 @@ data object DetailsDestination : NavigationDestination {
         navArgument(continentTypeArg) { type = NavType.IntType }
     )
     val deepLinks = listOf(
-        navDeepLink { uriPattern = "flags://$route/{$continentTypeArg}"}
+        navDeepLink { uriPattern = "flags://$route/{$continentTypeArg}" }
     )
 }
