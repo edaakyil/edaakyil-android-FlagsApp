@@ -86,3 +86,16 @@ data object QuizDestination : NavigationDestination {
         navDeepLink { uriPattern = "flags://$route/{$quizTypeArg}/{$continentTypeArg}" }
     )
 }
+
+data object DetailsDestination : NavigationDestination {
+    override val route = "details"
+    override val titleResId = R.string.details_title
+    const val continentTypeArg = "continent_type"
+    val routeWithArgs = "$route/{$continentTypeArg}"
+    val arguments = listOf(
+        navArgument(continentTypeArg) { type = NavType.IntType }
+    )
+    val deepLinks = listOf(
+        navDeepLink { uriPattern = "flags://$route/{$continentTypeArg}"}
+    )
+}

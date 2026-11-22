@@ -33,17 +33,22 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_XL
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.edaakyil.app.flags.R
+import com.edaakyil.app.flags.data.ContinentsData
 import com.edaakyil.app.flags.data.CountriesData
+import com.edaakyil.app.flags.model.Continent
 import com.edaakyil.app.flags.model.Country
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
 @Composable
 fun DetailsScreen(
+    continent: Continent,
     countriesList: List<Country>,
     modifier: Modifier = Modifier
 ) {
     var openDetailsDialog by rememberSaveable { mutableStateOf(false) }
     var selectedCountryIndex by rememberSaveable { mutableIntStateOf(0) }
+    
+    Text(continent.name)
 
     DetailsList(
         countriesList = countriesList,
@@ -142,6 +147,6 @@ private fun DetailsScreenPreview() {
     val countries = CountriesData.southAmericaCountries.toList()
 
     FlagsTheme {
-        DetailsScreen(countriesList = countries)
+        DetailsScreen(continent = ContinentsData.continentsList[2], countriesList = countries)
     }
 }

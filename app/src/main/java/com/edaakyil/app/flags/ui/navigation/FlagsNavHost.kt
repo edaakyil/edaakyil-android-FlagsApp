@@ -7,9 +7,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.edaakyil.app.flags.data.ContinentsData
 import com.edaakyil.app.flags.ui.MainScreenLayout
+import com.edaakyil.app.flags.ui.details.DetailsScreen
 import com.edaakyil.app.flags.ui.home.HomeScreen
-import com.edaakyil.app.flags.ui.interests.SongScreen
+import com.edaakyil.app.flags.ui.interests.InterestsScreen
 import com.edaakyil.app.flags.ui.quiz.CapitalsQuizScreen
 import com.edaakyil.app.flags.ui.quiz.FlagsQuizScreen
 import com.edaakyil.app.flags.ui.quiz.QuizMenuScreen
@@ -43,8 +45,27 @@ fun FlagsNavHost(
                 currentDestination = InterestsDestination,
                 onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
             ) {
-                SongScreen(Modifier.fillMaxSize())
+                InterestsScreen(
+                    onContinentClicked = { index -> navController.navigateToDetails(index) },
+                    modifier = Modifier.fillMaxSize()
+                )
             }
+        }
+
+        composable(
+            route = DetailsDestination.routeWithArgs,
+            arguments = DetailsDestination.arguments,
+            deepLinks = DetailsDestination.deepLinks
+        ) { navBackStackEntry ->
+            val continentIndex = navBackStackEntry.arguments?.getInt(DetailsDestination.continentTypeArg) ?: 0
+            val continent = ContinentsData.continentsList[continentIndex]
+            val countries = continent.countries.toList()
+
+            DetailsScreen(
+                continent = continent,
+                countriesList = countries,
+                modifier = Modifier.fillMaxSize()
+            )
         }
 
         composable(route = QuizMenuDestination.route) {
@@ -95,5 +116,12 @@ private fun NavHostController.navigateToQuiz(quizTypeIndex: Int, continentIndex:
         popUpTo(QuizMenuDestination.route) {
             inclusive = false
         }
+    }
+}
+
+private fun NavHostController.navigateToDetails(continentIndex: Int) {
+    this.navigate("${DetailsDestination.route}/$continentIndex") {
+        launchSingleTop = true
+        popUpTo(InterestsDestination.route) { inclusive = false }
     }
 }
