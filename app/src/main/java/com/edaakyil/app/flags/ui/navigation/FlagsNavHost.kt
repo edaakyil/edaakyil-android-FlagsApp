@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.edaakyil.app.flags.data.ContinentsData
-import com.edaakyil.app.flags.ui.MainScreenSlot
+import com.edaakyil.app.flags.ui.components.MainScreenSlot
 import com.edaakyil.app.flags.ui.details.DetailsScreen
 import com.edaakyil.app.flags.ui.home.HomeScreen
 import com.edaakyil.app.flags.ui.interests.InterestsScreen

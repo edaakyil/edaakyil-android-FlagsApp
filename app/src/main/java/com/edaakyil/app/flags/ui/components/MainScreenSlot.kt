@@ -1,4 +1,4 @@
-package com.edaakyil.app.flags.ui
+package com.edaakyil.app.flags.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
@@ -13,9 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.edaakyil.app.flags.ui.components.AppNavRail
-import com.edaakyil.app.flags.ui.components.FlagsBottomNavigation
-import com.edaakyil.app.flags.ui.components.FlagsTopBar
 import com.edaakyil.app.flags.ui.navigation.NavigationBarDestination
 import com.edaakyil.app.flags.ui.navigation.navigationBarDestinations
 import com.edaakyil.app.flags.ui.navigation.navigationBottomBarDestinations
