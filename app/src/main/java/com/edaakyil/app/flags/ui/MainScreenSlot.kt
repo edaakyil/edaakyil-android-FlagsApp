@@ -21,7 +21,7 @@ import com.edaakyil.app.flags.ui.navigation.navigationBarDestinations
 import com.edaakyil.app.flags.ui.navigation.navigationBottomBarDestinations
 
 @Composable
-fun MainScreenLayout(
+fun MainScreenSlot(
     currentDestination: NavigationBarDestination,
     onNavigationItemSelected: (NavigationBarDestination) -> Unit, // Parameter may be String
     modifier: Modifier = Modifier,
@@ -69,9 +69,9 @@ fun MainScreenLayout(
 
 //@Preview
 //@Composable
-//private fun MainScreenLayoutPreview() {
+//private fun MainScreenSlotPreview() {
 //    FlagsTheme {
-//        MainScreenLayout(
+//        MainScreenSlot(
 //            currentScreen = "home",
 //            onNavigationItemSelected = {},
 //            modifier = Modifier.fillMaxSize(),

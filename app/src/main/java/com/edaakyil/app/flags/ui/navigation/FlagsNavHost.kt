@@ -8,7 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.edaakyil.app.flags.data.ContinentsData
-import com.edaakyil.app.flags.ui.MainScreenLayout
+import com.edaakyil.app.flags.ui.MainScreenSlot
 import com.edaakyil.app.flags.ui.details.DetailsScreen
 import com.edaakyil.app.flags.ui.home.HomeScreen
 import com.edaakyil.app.flags.ui.interests.InterestsScreen
@@ -32,7 +32,7 @@ fun FlagsNavHost(
         modifier = modifier,
     ) {
         composable(route = HomeDestination.route) {
-            MainScreenLayout(
+            MainScreenSlot(
                 currentDestination = HomeDestination,
                 onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
             ) {
@@ -41,7 +41,7 @@ fun FlagsNavHost(
         }
 
         composable(route = InterestsDestination.route) {
-            MainScreenLayout(
+            MainScreenSlot(
                 currentDestination = InterestsDestination,
                 onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
             ) {
@@ -69,7 +69,7 @@ fun FlagsNavHost(
         }
 
         composable(route = QuizMenuDestination.route) {
-            MainScreenLayout(
+            MainScreenSlot(
                 currentDestination = QuizMenuDestination,
                 onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
             ) {
