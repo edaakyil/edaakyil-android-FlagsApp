@@ -3,6 +3,9 @@
 
     <string name="exit">Exit</string>
     <string name="back">Back</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
     <string name="skip">Skip</string>
     <string name="submit">Submit</string>
     <string name="forward">Forward</string>
