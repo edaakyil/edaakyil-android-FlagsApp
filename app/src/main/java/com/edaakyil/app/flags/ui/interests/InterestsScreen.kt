@@ -1,7 +1,5 @@
 package com.edaakyil.app.flags.ui.interests
 
-import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
-import androidx.compose.foundation.layout.ExperimentalGridApi
 import androidx.compose.foundation.layout.FlexAlignContent
 import androidx.compose.foundation.layout.FlexAlignItems
 import androidx.compose.foundation.layout.FlexBox
@@ -22,7 +20,6 @@ import com.edaakyil.app.flags.data.ContinentsData
 import com.edaakyil.app.flags.ui.components.ContinentCardElement
 import com.edaakyil.app.flags.ui.theme.FlagsTheme
 
-@OptIn(ExperimentalGridApi::class, ExperimentalFlexBoxApi::class)
 @Composable
 fun InterestsScreen(
     onContinentClicked: (Int) -> Unit,

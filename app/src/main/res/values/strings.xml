@@ -39,6 +39,18 @@
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
 
-    <!-- About Me / Info Screen -->
-    <string name="info_title">About Me Screen</string>
+    <!-- Info Screen -->
+    <string name="info_title">Info Screen</string>
+    <string name="developer_name">Eda Akyıl</string>
+    <string name="developer_title">Android Developer</string>
+    <string name="developer_phone_number">+00 (000) 000 00 00</string>
+    <string name="developer_mail_address">edaakyil@gmail.com</string>
+    <string name="developer_github_profile">edaakyil</string>
+    <string name="developer_linkedin_profile">www.linkedin.com/in/edaakyil</string>
+    <string name="share_link">\@AndroidDev</string>
+    <string name="call">Call</string>
+    <string name="mail">Mail</string>
+    <string name="share">Share</string>
+    <string name="github">Github</string>
+    <string name="linkedin">Linkedin</string>
 </resources>

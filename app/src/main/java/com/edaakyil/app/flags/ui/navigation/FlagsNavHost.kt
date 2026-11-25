@@ -7,6 +7,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.edaakyil.app.flags.ui.aboutme.InfoScreen
 import com.edaakyil.app.flags.ui.components.MainScreenSlot
 import com.edaakyil.app.flags.ui.details.DetailsScreen
 import com.edaakyil.app.flags.ui.home.HomeScreen
@@ -92,6 +93,10 @@ fun FlagsNavHost(
 
         composable(route = SettingsDestination.route) {
             SettingsScreen(Modifier.fillMaxSize())
+        }
+
+        composable(route = InfoDestination.route) {
+            InfoScreen(Modifier.fillMaxSize())
         }
     }
 }

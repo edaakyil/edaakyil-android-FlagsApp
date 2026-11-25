@@ -59,7 +59,7 @@ data object SettingsDestination : NavigationBarDestination {
 }
 
 data object InfoDestination : NavigationBarDestination {
-    override val route = "aboutMe"
+    override val route = "info"
     override val titleResId = R.string.info_title
     override val outlineIconRes = R.drawable.info
     override val filledIconRes = R.drawable.info_filled
