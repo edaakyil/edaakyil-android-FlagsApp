@@ -19,9 +19,13 @@ You implement the Retrofit service API with the following steps:
 // constant for the base URL for the web service
 private const val BASE_URL = "https://android-kotlin-fun-mars-server.appspot.com"
 
+private val json = Json {
+    ignoreUnknownKeys = true
+}
+
 // a Retrofit builder that builds and creates a Retrofit object
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+    .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     .baseUrl(BASE_URL)
     .build()  // to create the Retrofit object
 
