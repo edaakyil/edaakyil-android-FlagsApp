@@ -39,6 +39,9 @@
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
 
+    <!-- Search Screen -->
+    <string name="search_title">Search</string>
+
     <!-- Info Screen -->
     <string name="info_title">Info Screen</string>
     <string name="developer_name">Eda Akyıl</string>

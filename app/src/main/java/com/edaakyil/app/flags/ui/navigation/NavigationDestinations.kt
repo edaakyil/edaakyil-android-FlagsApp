@@ -22,7 +22,11 @@ val navigationBottomBarDestinations = listOf(
     InterestsDestination,
     QuizMenuDestination
 )
-val navigationBarDestinations = navigationBottomBarDestinations + listOf(
+val navigationBarDestinations = listOf(
+    HomeDestination,
+    InterestsDestination,
+    SearchDestination,
+    QuizMenuDestination,
     SettingsDestination,
     InfoDestination
 )
@@ -49,6 +53,13 @@ data object InterestsDestination : NavigationBarDestination {
     override val titleResId = R.string.interests_title
     override val outlineIconRes = R.drawable.list_alt
     override val filledIconRes = R.drawable.list_alt_filled
+}
+
+data object SearchDestination : NavigationBarDestination {
+    override val route = "search"
+    override val titleResId = R.string.search_title
+    override val outlineIconRes = R.drawable.search
+    override val filledIconRes = R.drawable.search
 }
 
 data object SettingsDestination : NavigationBarDestination {

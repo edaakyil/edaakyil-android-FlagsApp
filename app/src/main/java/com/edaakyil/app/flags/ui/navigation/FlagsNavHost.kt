@@ -15,6 +15,7 @@ import com.edaakyil.app.flags.ui.interests.InterestsScreen
 import com.edaakyil.app.flags.ui.quiz.CapitalsQuizScreen
 import com.edaakyil.app.flags.ui.quiz.FlagsQuizScreen
 import com.edaakyil.app.flags.ui.quiz.QuizMenuScreen
+import com.edaakyil.app.flags.ui.search.SearchScreen
 import com.edaakyil.app.flags.ui.settings.SettingsScreen
 
 @Composable
@@ -37,6 +38,15 @@ fun FlagsNavHost(
                 onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
             ) {
                  HomeScreen(Modifier.fillMaxSize())
+            }
+        }
+
+        composable(route = SearchDestination.route) {
+            MainScreenSlot(
+                currentDestination = SearchDestination,
+                onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
+            ) {
+                SearchScreen(Modifier.fillMaxSize())
             }
         }
 
@@ -92,7 +102,12 @@ fun FlagsNavHost(
         }
 
         composable(route = SettingsDestination.route) {
-            SettingsScreen(Modifier.fillMaxSize())
+            MainScreenSlot(
+                currentDestination = SettingsDestination,
+                onNavigationItemSelected = { navController.navigateSingleTopTo(route = it.route) }
+            ) {
+                SettingsScreen(Modifier.fillMaxSize())
+            }
         }
 
         composable(route = InfoDestination.route) {

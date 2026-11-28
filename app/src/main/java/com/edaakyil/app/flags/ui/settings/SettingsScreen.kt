@@ -14,6 +14,6 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("SettingsScreen")
+        Text("Settings Screen")
     }
 }
