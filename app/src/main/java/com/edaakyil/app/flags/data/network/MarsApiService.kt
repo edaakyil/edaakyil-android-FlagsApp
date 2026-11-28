@@ -1,4 +1,4 @@
-package com.edaakyil.app.flags.network
+package com.edaakyil.app.flags.data.network
 
 import com.edaakyil.app.flags.model.MarsPhoto
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
